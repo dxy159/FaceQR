@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="Iut-dc-vtB">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -64,90 +63,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1556" y="100"/>
-        </scene>
-        <!--Profile View Controller-->
-        <scene sceneID="veL-7S-uiq">
-            <objects>
-                <viewController id="Iut-dc-vtB" customClass="ProfileViewController" customModule="FaceQR" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="xXo-zO-pAL"/>
-                        <viewControllerLayoutGuide type="bottom" id="7jf-93-Xly"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="i8v-88-r1c">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="D2H-in-jN6">
-                                <rect key="frame" x="67" y="40" width="240" height="263"/>
-                            </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="twr-y8-aQA">
-                                <rect key="frame" x="67" y="333" width="240" height="20"/>
-                                <attributedString key="attributedText">
-                                    <fragment content="Name">
-                                        <attributes>
-                                            <font key="NSFont" size="17" name="Helvetica-Bold"/>
-                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                        </attributes>
-                                    </fragment>
-                                </attributedString>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dkb-BP-Df5">
-                                <rect key="frame" x="67" y="390" width="240" height="20"/>
-                                <attributedString key="attributedText">
-                                    <fragment content="Biography">
-                                        <attributes>
-                                            <font key="NSFont" size="17" name="Helvetica"/>
-                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                        </attributes>
-                                    </fragment>
-                                </attributedString>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j4j-Zf-E2b">
-                                <rect key="frame" x="67" y="448" width="240" height="20"/>
-                                <attributedString key="attributedText">
-                                    <fragment content="Interests">
-                                        <attributes>
-                                            <font key="NSFont" size="17" name="Helvetica"/>
-                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                        </attributes>
-                                    </fragment>
-                                </attributedString>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0SY-rT-8LC">
-                                <rect key="frame" x="67" y="519" width="240" height="128"/>
-                                <color key="backgroundColor" red="0.0" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                            </view>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="D2H-in-jN6" firstAttribute="leading" secondItem="i8v-88-r1c" secondAttribute="leadingMargin" constant="51" id="2bG-oQ-gNo"/>
-                            <constraint firstItem="twr-y8-aQA" firstAttribute="top" secondItem="D2H-in-jN6" secondAttribute="bottom" constant="30" id="3rc-74-VcT"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="0SY-rT-8LC" secondAttribute="trailing" constant="52" id="A3e-mv-0Nk"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="twr-y8-aQA" secondAttribute="trailing" constant="52" id="AeS-IK-pJT"/>
-                            <constraint firstItem="0SY-rT-8LC" firstAttribute="leading" secondItem="i8v-88-r1c" secondAttribute="leadingMargin" constant="51" id="Ahn-vb-HSw"/>
-                            <constraint firstItem="dkb-BP-Df5" firstAttribute="leading" secondItem="i8v-88-r1c" secondAttribute="leadingMargin" constant="51" id="Bbn-Qq-iKF"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="dkb-BP-Df5" secondAttribute="trailing" constant="52" id="IP7-3q-Yhu"/>
-                            <constraint firstItem="j4j-Zf-E2b" firstAttribute="leading" secondItem="i8v-88-r1c" secondAttribute="leadingMargin" constant="51" id="KXU-xj-F0Y"/>
-                            <constraint firstItem="7jf-93-Xly" firstAttribute="top" secondItem="dkb-BP-Df5" secondAttribute="bottom" constant="257" id="LZS-rM-8tq"/>
-                            <constraint firstItem="dkb-BP-Df5" firstAttribute="leading" secondItem="i8v-88-r1c" secondAttribute="leadingMargin" constant="51" id="Tqp-e1-ml9"/>
-                            <constraint firstItem="0SY-rT-8LC" firstAttribute="top" secondItem="j4j-Zf-E2b" secondAttribute="bottom" constant="51" id="aYh-Y7-1gO"/>
-                            <constraint firstItem="7jf-93-Xly" firstAttribute="top" secondItem="0SY-rT-8LC" secondAttribute="bottom" constant="20" id="ey1-9X-8BN"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="j4j-Zf-E2b" secondAttribute="trailing" constant="52" id="hT3-NJ-fQj"/>
-                            <constraint firstItem="twr-y8-aQA" firstAttribute="leading" secondItem="i8v-88-r1c" secondAttribute="leadingMargin" constant="51" id="oH8-B1-p4d"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="D2H-in-jN6" secondAttribute="trailing" constant="52" id="pXZ-j0-6UF"/>
-                            <constraint firstItem="D2H-in-jN6" firstAttribute="top" secondItem="xXo-zO-pAL" secondAttribute="bottom" constant="20" id="qFa-vH-Y0t"/>
-                            <constraint firstItem="j4j-Zf-E2b" firstAttribute="top" secondItem="dkb-BP-Df5" secondAttribute="bottom" constant="38" id="tG2-V9-Lcc"/>
-                            <constraint firstItem="dkb-BP-Df5" firstAttribute="top" secondItem="twr-y8-aQA" secondAttribute="bottom" constant="37" id="zjA-8L-SIK"/>
-                        </constraints>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="CXM-wf-ZvE" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-626.39999999999998" y="98.50074962518741"/>
+            <point key="canvasLocation" x="136.80000000000001" y="135.38230884557723"/>
         </scene>
     </scenes>
 </document>
