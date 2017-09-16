@@ -3,8 +3,7 @@ const cognitiveServices = require('cognitive-services');
 const admin = require('firebase-admin');
 
 admin.initializeApp(functions.config().firebase);
-const key = '1caec07977834dcbbf6ea8cf79eda922';
-
+const key = '80e7eba0434a46fba6e35a968958ce1e';
 
 const face = cognitiveServices.face({
     API_KEY: key
