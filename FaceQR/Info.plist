@@ -35,6 +35,9 @@
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>NSCameraUsageDescription</key>
+ SignUpAndLogin
 	<string>Need a picture of your face</string>
+	<string>To access our photos</string>
+ master
 </dict>
 </plist>
