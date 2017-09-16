@@ -21,26 +21,45 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ITb-SS-YeC">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="617"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ITb-SS-YeC">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </imageView>
-                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bgA-Zt-Qja">
-                                <rect key="frame" x="0.0" y="623" width="375" height="44"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                                <items>
-                                    <barButtonItem title="Camera" id="oP2-Tb-Q2b"/>
-                                    <barButtonItem title="Gallery" id="bFn-Am-JQo"/>
-                                </items>
-                            </toolbar>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BZl-1a-AhN">
+                                <rect key="frame" x="73" y="592" width="54" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Camera"/>
+                                <connections>
+                                    <action selector="cameraAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Qmk-dE-tFY"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Idu-k6-IpE">
+                                <rect key="frame" x="243" y="592" width="48" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Gallery"/>
+                                <connections>
+                                    <action selector="galleryButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="L0B-oV-LFo"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aoE-0N-M72">
+                                <rect key="frame" x="170" y="592" width="34" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Save"/>
+                                <connections>
+                                    <action selector="save:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Y6f-SB-L3B"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="ITb-SS-YeC" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="8ck-Tj-FR7"/>
                             <constraint firstItem="ITb-SS-YeC" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="AJI-Tt-fKN"/>
                             <constraint firstAttribute="trailing" secondItem="ITb-SS-YeC" secondAttribute="trailing" id="VPQ-Su-NDh"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="ITb-SS-YeC" secondAttribute="bottom" constant="50" id="onf-l1-T0w"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="ITb-SS-YeC" secondAttribute="bottom" id="onf-l1-T0w"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="imageView" destination="ITb-SS-YeC" id="UHf-ms-H9u"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
