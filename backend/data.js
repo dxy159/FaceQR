@@ -1,6 +1,6 @@
 var https = require('https');
 
-function getData(callback) {
+function getData(callback, arg) {
 
   var options = {
     host: "us-central1-faceqr-80d9c.cloudfunctions.net",
