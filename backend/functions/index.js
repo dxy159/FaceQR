@@ -50,17 +50,16 @@ function DetectImage(imageURL, callback) {
 
 function VerifyImage(imageID1, imageID2, callback) {
   // Build the post string from an object
-  var post_data = querystring.stringify({
+  var post_data = JSON.stringify({
         'faceId1' : imageID1,
         'faceId2' : imageID2
   });
-
-//  console.log('Post_data : ', post_data)
+  //console.log('Post_data : ', post_data)
 
   // An object of options to indicate where to post to
   var post_options = {
       host: 'westus.api.cognitive.microsoft.com',
-      path: '/face/v1.0/detect',
+      path: '/face/v1.0/verify',
       method: 'POST',
       headers: {
           'Content-Type': 'application/json',
@@ -68,7 +67,6 @@ function VerifyImage(imageID1, imageID2, callback) {
       }
   };
 
-  //var reh = new Promise(function(resolve, reject) {
     var body = "";
     // Set up the request
     var post_req = https.request(post_options, function(res) {
@@ -77,7 +75,7 @@ function VerifyImage(imageID1, imageID2, callback) {
             body += chunk.toString('utf8');
         });
         res.on('end', function(chunk) {
-            callback(chunk);
+            callback(body);
         });
     });
 
@@ -94,57 +92,53 @@ function VerifyImage(imageID1, imageID2, callback) {
  // https://firebase.google.com/docs/functions/write-firebase-functions
 
 exports.helloWorld = functions.https.onRequest((req, res) => {
-    var sourceImageUrl ='https://firebasestorage.googleapis.com/v0/b/faceqr-80d9c.appspot.com/o/14918967_1417370714957463_8883527504144697316_o.jpg?alt=media&token=9eeb7b8c-71cb-41a2-9581-716f10d5632e';
-
-  //  var uriBase = "https://westcentralus.api.cognitive.microsoft.com/face/v1.0/detect";
-
-    var input = req;
-    try {
-    //  console.log(JSON.stringify(input))
-    }
-    catch (err) {
-    //  console.log(input);
-    }
+    //var sourceImageUrl ='https://firebasestorage.googleapis.com/v0/b/faceqr-80d9c.appspot.com/o/Connor?alt=media&token=a9d11848-96e3-41ab-9482-ded6d46eba6c';
+    var sourceImageUrl =  req.body.imageURL
 
 
-
-    // Request parameters.
-  /*  var params = {
-        "returnFaceId": "true",
-        "returnFaceLandmarks": "false",
-        "returnFaceAttributes": "age,gender,facialHair,glasses,hair,makeup,"
-    }; */
     DetectImage(sourceImageUrl,  function(body) {
-       //console.log(body, body[0]["faceId"])
-       var refID = body[0]["faceId"];
-       return admin.database().ref('/Something').once('value', (snapshot, refID) => {
-           console.log(refID)
+       var refID = JSON.parse(body)[0]["faceId"];
+       return admin.database().ref('/users').once('value', (snapshot) => {
+          var name = "";
+          var foundMatch = 0;
            snapshot.forEach(function(image) {
+             console.log(image.val())
              var imageName = image.key;
-             var imageURL = image.val();
-             var matched = 0;
+             var imageURL = image.val()["imgDownloadLink"];
              DetectImage(imageURL, function(body2) {
-                var verID = body2[0]["faceId"];
-            //  console.log(body2, body2[0]["faceId"])
-            //  console.log(refID, verID)
+               console.log(body2)
+                var verID = JSON.parse(body2)[0]["faceId"];
                 VerifyImage(refID, verID, function(message) {
-                var isIdentical = message[0]["isIdentical"];
-                var confidence = message[0]["confidence"];
-                if (isIdentical === True) {
-                  console.log('Fuckin got him boiz')
-                  matched = 1;
+                  console.log('Here', message)
+              //    console.log('Name', imageName)
+                var isIdentical = JSON.parse(message)["isIdentical"];
+                var confidence = JSON.parse(message)["confidence"];
+                if (isIdentical === true) {
+                  name = imageName;
+                  foundMatch = 1;
+                  console.log('TRUE', name)
+                  res.send(name)
                 }
-
               })
-
-
             })
           })
-
+          return ({name, foundMatch})
+        }).then(function({name, foundMatch}) {
+          console.log('HERE', name)
+          console.log(foundMatch)
+          if (foundMatch === 0) {
+            console.log('THERE')
+            res.send("None")
+          } else {
+            console.log('FUCK')
+            res.send(name)
+          }
+        }, function(err) {
+           res.send(err)
         })
 
      });
 
-    res.send('Fkjb')
+
 
 });
