@@ -1,62 +1,150 @@
 const functions = require('firebase-functions');
 const cognitiveServices = require('cognitive-services');
 const admin = require('firebase-admin');
+var https = require('https');
 
 admin.initializeApp(functions.config().firebase);
-const key = '80e7eba0434a46fba6e35a968958ce1e';
+const subscriptionKey = 'c922f4a50301484ca34e5fd372f6932c';
 
-const face = cognitiveServices.face({
-    API_KEY: key
-})
+
+// We need this to build our post string
+var querystring = require('querystring');
+var fs = require('fs');
+
+function DetectImage(imageURL, callback) {
+  // Build the post string from an object
+  var post_data = JSON.stringify({
+        'url' : imageURL
+  });
+
+  // An object of options to indicate where to post to
+  var post_options = {
+      host: 'westus.api.cognitive.microsoft.com',
+      path: '/face/v1.0/detect',
+      method: 'POST',
+      headers: {
+          'Content-Type': 'application/json',
+          'Ocp-Apim-Subscription-Key': subscriptionKey
+      }
+  };
+
+  //var reh = new Promise(function(resolve, reject) {
+    var body = "";
+    // Set up the request
+    var post_req = https.request(post_options, function(res) {
+        res.setEncoding('utf8');
+        res.on('data', function (chunk) {
+            body += chunk.toString('utf8');
+        });
+        res.on('end', function(chunk) {
+            callback(body);
+        });
+    });
+
+    // post the data
+    post_req.write(post_data);
+    post_req.end();
+
+}
+
+
+function VerifyImage(imageID1, imageID2, callback) {
+  // Build the post string from an object
+  var post_data = querystring.stringify({
+        'faceId1' : imageID1,
+        'faceId2' : imageID2
+  });
+
+//  console.log('Post_data : ', post_data)
+
+  // An object of options to indicate where to post to
+  var post_options = {
+      host: 'westus.api.cognitive.microsoft.com',
+      path: '/face/v1.0/detect',
+      method: 'POST',
+      headers: {
+          'Content-Type': 'application/json',
+          'Ocp-Apim-Subscription-Key': subscriptionKey
+      }
+  };
+
+  //var reh = new Promise(function(resolve, reject) {
+    var body = "";
+    // Set up the request
+    var post_req = https.request(post_options, function(res) {
+        res.setEncoding('utf8');
+        res.on('data', function (chunk) {
+            body += chunk.toString('utf8');
+        });
+        res.on('end', function(chunk) {
+            callback(chunk);
+        });
+    });
+
+    // post the data
+    post_req.write(post_data);
+    post_req.end();
+
+}
+
+
 
 
 // Create and Deploy Your First Cloud Functions
  // https://firebase.google.com/docs/functions/write-firebase-functions
 
 exports.helloWorld = functions.https.onRequest((req, res) => {
-    const parameters = {
-        returnFaceId: "true",
-        returnFaceLandmarks: "false"
-    };
-    const body = {
-        "url": 'www.google.ca/search?q=stock+face+photos&source=lnms&tbm=isch&sa=X&ved=0ahUKEwiBosqwtKrWAhWFzIMKHay8D08Q_AUICigB&biw=1440&bih=782#imgrc=Mlp4eEfTCJAEYM:'}
-    face.detect({
-      parameters,
-      body
-    })
-      .then((response) => {
-        console.log(response)
-      })
-      .catch((err) => {
-        console.log('Error', err)
-      })
+    var sourceImageUrl ='https://firebasestorage.googleapis.com/v0/b/faceqr-80d9c.appspot.com/o/14918967_1417370714957463_8883527504144697316_o.jpg?alt=media&token=9eeb7b8c-71cb-41a2-9581-716f10d5632e';
+
+  //  var uriBase = "https://westcentralus.api.cognitive.microsoft.com/face/v1.0/detect";
+
+    var input = req;
+    try {
+    //  console.log(JSON.stringify(input))
+    }
+    catch (err) {
+    //  console.log(input);
+    }
 
 
-  return admin.database().ref('/Something').once('value', (snapshot) => {
 
-      snapshot.forEach(function(image) {
-        var imageURL = image.val();
-        // Run face.detect using this url
-        // Use face.verify with the previous image ID and this ID
-        // If you get true sed a messag back
+    // Request parameters.
+  /*  var params = {
+        "returnFaceId": "true",
+        "returnFaceLandmarks": "false",
+        "returnFaceAttributes": "age,gender,facialHair,glasses,hair,makeup,"
+    }; */
+    DetectImage(sourceImageUrl,  function(body) {
+       //console.log(body, body[0]["faceId"])
+       var refID = body[0]["faceId"];
+       return admin.database().ref('/Something').once('value', (snapshot, refID) => {
+           console.log(refID)
+           snapshot.forEach(function(image) {
+             var imageName = image.key;
+             var imageURL = image.val();
+             var matched = 0;
+             DetectImage(imageURL, function(body2) {
+                var verID = body2[0]["faceId"];
+            //  console.log(body2, body2[0]["faceId"])
+            //  console.log(refID, verID)
+                VerifyImage(refID, verID, function(message) {
+                var isIdentical = message[0]["isIdentical"];
+                var confidence = message[0]["confidence"];
+                if (isIdentical === True) {
+                  console.log('Fuckin got him boiz')
+                  matched = 1;
+                }
 
-      })
-  })
+              })
+
+
+            })
+          })
+
+        })
+
+     });
+
+    res.send('Fkjb')
 
 });
-
-
-/* exports.testFunc = functions.database.ref('/Something').onCreate(event => {
-
-  //var place = admin.database().ref('/Something');
-  console.log('wot');
-  response.send("True");
-  return event.data;
-}); */
-
-//This is the function to be used for verification
-//exports.addFace = functions.https.onRequest((req, res) => {
-  // Grab the text parameter.
-  //var name = req.query.text;
-
-//});
